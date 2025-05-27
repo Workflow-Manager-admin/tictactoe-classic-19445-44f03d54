@@ -28,7 +28,7 @@ export default function TicTacToeClassic(): JSX.Element {
 
   // Check if a winning or draw condition exists
   function calculateStatus(currentBoard: Array<'X' | 'O' | null>): 'X' | 'O' | 'Draw' | null {
-    for (let line of winLines) {
+    for (const line of winLines) {
       const [a, b, c] = line;
       if (
         currentBoard[a] &&

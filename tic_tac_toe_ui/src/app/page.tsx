@@ -1,7 +1,5 @@
-import dynamic from "next/dynamic";
-
-// Use the TypeScript/TSX version of the component for compatibility.
-const TicTacToeClassic = dynamic(() => import("./TicTacToeClassic"), { ssr: false });
+'use client';
+import TicTacToeClassic from "./TicTacToeClassic";
 
 export default function Home() {
   return (
