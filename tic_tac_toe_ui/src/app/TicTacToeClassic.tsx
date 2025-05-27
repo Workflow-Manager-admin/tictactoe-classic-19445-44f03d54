@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 /**
  * TicTacToe Classic main container
@@ -11,13 +11,13 @@ import { useState } from 'react';
  */
 
 // PUBLIC_INTERFACE
-export default function TicTacToeClassic() {
+export default function TicTacToeClassic(): JSX.Element {
   // Game board state: 9 cells, each null | 'X' | 'O'
-  const [board, setBoard] = useState(Array(9).fill(null));
+  const [board, setBoard] = useState<Array<'X' | 'O' | null>>(Array(9).fill(null));
   // true: X's turn, false: O's turn
-  const [isXNext, setIsXNext] = useState(true);
+  const [isXNext, setIsXNext] = useState<boolean>(true);
   // null | 'X' | 'O' | 'Draw'
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<'X' | 'O' | 'Draw' | null>(null);
 
   // Winning line combinations (cell indices)
   const winLines = [
@@ -27,7 +27,7 @@ export default function TicTacToeClassic() {
   ];
 
   // Check if a winning or draw condition exists
-  function calculateStatus(currentBoard) {
+  function calculateStatus(currentBoard: Array<'X' | 'O' | null>): 'X' | 'O' | 'Draw' | null {
     for (let line of winLines) {
       const [a, b, c] = line;
       if (
@@ -35,7 +35,7 @@ export default function TicTacToeClassic() {
         currentBoard[a] === currentBoard[b] &&
         currentBoard[a] === currentBoard[c]
       ) {
-        return currentBoard[a]; // 'X' or 'O'
+        return currentBoard[a];
       }
     }
     if (currentBoard.every(cell => cell)) return 'Draw';
@@ -43,7 +43,7 @@ export default function TicTacToeClassic() {
   }
 
   // PUBLIC_INTERFACE
-  function handleCellClick(idx) {
+  function handleCellClick(idx: number) {
     if (board[idx] || status) return; // already filled or game over
     const nextBoard = board.slice();
     nextBoard[idx] = isXNext ? 'X' : 'O';
@@ -61,7 +61,7 @@ export default function TicTacToeClassic() {
   }
 
   // UI texts
-  let infoText;
+  let infoText: string;
   if (status === 'X') infoText = 'Player X wins!';
   else if (status === 'O') infoText = 'Player O wins!';
   else if (status === 'Draw') infoText = "It's a draw!";
